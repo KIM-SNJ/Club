@@ -1,0 +1,68 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+int main() {
+   srand(time(NULL));
+
+   int MAP[5][5] = { 0 };
+   int placed = 0;
+   int hit = 0;
+   int ts = 10;
+   int try = 0;
+   int row, col;
+
+   while (placed < 10) {
+      int r = rand() % 5;
+      int c = rand() % 5;
+
+      if (MAP[r][c] == 0) {
+         MAP[r][c] = 1;
+         placed++;
+      }
+   }
+   printf("전함 맞추기 게임\n");
+   while (hit != ts) {
+      for (int i = 0; i < 5; i++) {
+         for (int j = 0; j < 5; j++) {
+            if (MAP[i][j] == 0 || MAP[i][j] == 1) {
+               printf("~ ");
+            }
+            else if (MAP[i][j] == 2) {
+               printf("O ");
+            }
+            else if (MAP[i][j] == 3) {
+               printf("X ");
+            }
+         }
+         printf("\n");
+      }
+      scanf("%d %d", &row, &col);
+
+      if (MAP[row-1][col-1] == 1) {
+         MAP[row-1][col-1] = 2;
+         hit += 1;
+         try += 1;
+         for (int i = 0; i < 50; i++) {
+            printf("\b");
+         }
+         printf("맞췄습니다.\n");
+      }
+      else if (MAP[row - 1][col - 1] == 2 || MAP[row - 1][col - 1] == 3) {
+         for (int i = 0; i < 50; i++) {
+            printf("\b");
+         }
+         printf("이미 공격한 위치입니다. 다시 선택하세요.\n");
+      }
+      else {
+         MAP[row-1][col-1] = 3;
+         try += 1;
+         for (int i = 0; i < 50; i++) {
+            printf("\b");
+         }
+         printf("빗나갔습니다.\n");
+      }
+   }
+   printf("\n%d번의 시도만에 모든 전함을 침몰시켰습니다.", try);
+}
