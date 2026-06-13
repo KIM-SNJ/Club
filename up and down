@@ -1,0 +1,29 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+int main() {
+    int count = 1;
+    int pc;
+    int player;
+    srand(time(NULL));
+    printf("up and down 게임₩n");
+    printf("1~100사이의 숫자를 맞춰주세요₩n");
+    pc = rand() % 100 + 1;
+    while(1) {
+        scanf("%d", &player);
+        if (pc == player) {
+            printf("정답!");
+            printf("%d번 시도만에 승리하셨습니다", count);
+            break; 
+		}
+        else if (pc > player) {
+            printf("UP");   
+		}
+        else {
+            printf("DOWN");
+		}
+        count ++;
+	}
+}
